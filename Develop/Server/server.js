@@ -12,11 +12,10 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
+// Serve static files from the React build directory
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
+// Configure Apollo Server
 async function startApolloServer() {
   const server = new ApolloServer({
     typeDefs, // Pass your GraphQL type definitions
@@ -32,6 +31,14 @@ async function startApolloServer() {
 
 startApolloServer();
 
+// For all other requests, serve the React frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
+// Start the server
 db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on http://localhost:3001/`));
+  app.listen(PORT, () => {
+    console.log(`🌍 Server is listening on http://localhost:${PORT}`);
+  });
 });
