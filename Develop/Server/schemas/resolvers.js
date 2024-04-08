@@ -3,7 +3,6 @@ const { signToken } = require('../utils/auth');
 
 module.exports = {
   Query: {
-    // Resolver function to get a single user by either their id or their username
     getSingleUser: async (_, { id, username }, { user }) => {
       try {
         const foundUser = await User.findOne({
@@ -11,53 +10,50 @@ module.exports = {
         });
 
         if (!foundUser) {
-          throw new Error('Cannot find a user with this id or username!');
+          return new Error('Cannot find a user with this id or username!');
         }
 
         return foundUser;
       } catch (err) {
-        throw new Error(err);
+        return err;
       }
     },
   },
   Mutation: {
-    // Resolver function to create a user, sign a token, and send it back
     createUser: async (_, { username, email, password }) => {
       try {
         const user = await User.create({ username, email, password });
 
         if (!user) {
-          throw new Error('Something went wrong while creating the user!');
+          return new Error('Something went wrong while creating the user!');
         }
 
         const token = signToken(user);
         return { token, user };
       } catch (err) {
-        throw new Error(err);
+        return err;
       }
     },
-    // Resolver function to login a user, sign a token, and send it back
     login: async (_, { usernameOrEmail, password }) => {
       try {
         const user = await User.findOne({ $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }] });
 
         if (!user) {
-          throw new Error("Can't find this user");
+          return new Error("Can't find this user");
         }
 
         const correctPw = await user.isCorrectPassword(password);
 
         if (!correctPw) {
-          throw new Error('Wrong password!');
+          return new Error('Wrong password!');
         }
 
         const token = signToken(user);
         return { token, user };
       } catch (err) {
-        throw new Error(err);
+        return err;
       }
     },
-    // Resolver function to save a book to a user's `savedBooks` field
     saveBook: async (_, { bookInput }, { user }) => {
       try {
         const updatedUser = await User.findOneAndUpdate(
@@ -67,11 +63,10 @@ module.exports = {
         );
         return updatedUser;
       } catch (err) {
-        throw new Error(err);
+        return err;
       }
     },
-    // Resolver function to remove a book from `savedBooks`
-    deleteBook: async (_, { bookId }, { user }) => {
+    removeBook: async (_, { bookId }, { user }) => {
       try {
         const updatedUser = await User.findOneAndUpdate(
           { _id: user._id },
@@ -80,12 +75,12 @@ module.exports = {
         );
 
         if (!updatedUser) {
-          throw new Error("Couldn't find user with this id!");
+          return new Error("Couldn't find user with this id!");
         }
 
         return updatedUser;
       } catch (err) {
-        throw new Error(err);
+        return err;
       }
     },
   },
