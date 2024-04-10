@@ -1,41 +1,49 @@
+// initial setup for Apollo Client for React
 import { gql } from '@apollo/client';
 
-// Define the LOGIN_USER mutation
+// boilerplate for User login controls
 export const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
+  mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
         _id
         username
-        email
       }
     }
   }
 `;
 
-// Define the ADD_USER mutation
+// modify for refactored code
 export const ADD_USER = gql`
-  mutation AddUser($username: String!, $email: String!, $password: String!) {
+  mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
       token
       user {
         _id
         username
         email
+        bookCount
+        savedBooks {
+          authors
+          bookId
+          image
+          link
+          title
+          description
+        }
       }
     }
   }
 `;
 
-// Define the SAVE_BOOK mutation
+// new code for refactor
 export const SAVE_BOOK = gql`
-  mutation SaveBook($bookInput: BookInput!) {
-    saveBook(bookInput: $bookInput) {
+  mutation saveBook($newBook: InputBook!) {
+    saveBook(newBook: $newBook) {
       _id
       username
       email
-      bookCount
       savedBooks {
         bookId
         authors
@@ -48,14 +56,13 @@ export const SAVE_BOOK = gql`
   }
 `;
 
-// Define the REMOVE_BOOK mutation
+// new code for refactor
 export const REMOVE_BOOK = gql`
-  mutation RemoveBook($bookId: ID!) {
+  mutation removeBook($bookId: ID!) {
     removeBook(bookId: $bookId) {
       _id
       username
       email
-      bookCount
       savedBooks {
         bookId
         authors
