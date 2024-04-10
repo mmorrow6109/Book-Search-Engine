@@ -1,8 +1,8 @@
 
-# Challenge 9 - README Generator
+# Book Search Engine
 
 ## Description
-For this challenge, I used Node JS to create CLI functionality that successfully generates a professional README file.
+This project was meant to take an existing search engine and update it to use modern technology (MERN Stack).  This is meant to convey a real life work situation in which you may be tasked to do exactly that.  Using Mongoose, Express, React, and Node, we now have a functional search engine that allows the user to signup and login to their profile.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -13,24 +13,21 @@ For this challenge, I used Node JS to create CLI functionality that successfully
 - [Questions](#questions)
 
 ## Installation
-Install Node JS as well as the required Inquirer package
+Clone this repository git@github.com:mmorrow6109/Book-Search-Engine.git", open the integrated terminal in the develop folder and enter "npm run develop"
 
 ## Usage
-Open the "index.js" file in the integrated terminal and enter "node index.js" to run application
+Search for books!
 
 ## License
 This project is not licensed.
 
+## Screenshots
+![Search](Develop\assets\book-search1.png)
+![Search](Develop\assets\book-search3.png)
+![Error](Develop\assets\book-search2.png)
+
 ## Contributing
-Contributions are myself, Matt Morrow and GitHub copilot
-
-## Tests
-See "Usage" tab
-
-## Demo Video
-
-<iframe src="https://drive.google.com/file/d/1YQdqH7S8SSZy0KM7EE-_dOHzX1wuJz9J/preview" width="640" height="480"></iframe>
+Matt Morrow
 
 ## Questions
 For any questions, please contact [mmorrow6109](https://github.com/mmorrow6109) or email at msmorrow6109@gmail.com.
-
